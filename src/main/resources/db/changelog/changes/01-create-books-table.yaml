@@ -3,9 +3,9 @@ databaseChangeLog:
       id: create-books-table
       author: bohdan-sh
       changes:
-          - createTable:
-              tableName: books
-              columns:
+        - createTable:
+            tableName: books
+            columns:
               - column:
                   name: id
                   type: bigint
