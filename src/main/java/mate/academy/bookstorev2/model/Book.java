@@ -24,12 +24,10 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "title")
     private String title;
-    @Column(name = "author")
     private String author;
     private BigDecimal price;
-    @Column(unique = true, name = "isbn")
+    @Column(unique = true)
     private String isbn;
     private String description;
     private String coverImage;
