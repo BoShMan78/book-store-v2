@@ -1,5 +1,6 @@
 package mate.academy.bookstorev2.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
@@ -10,9 +11,9 @@ import mate.academy.bookstorev2.validation.UniqueIsbn;
 @Getter
 @Setter
 public class CreateBookRequestDto {
-    @NotNull
+    @NotBlank
     private String title;
-    @NotNull
+    @NotBlank
     private String author;
     @PositiveOrZero
     @NotNull
