@@ -1,8 +1,8 @@
 package mate.academy.bookstorev2.controller;
 
-import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstorev2.dto.BookDto;
@@ -37,7 +37,6 @@ public class BookController {
 
     @PostMapping
     @Operation(summary = "Create a new book", description = "Create a new book")
-    public BookDto createBook(@RequestBody CreateBookRequestDto bookDto) {
     public BookDto createBook(@RequestBody @Valid CreateBookRequestDto bookDto) {
         return bookService.save(bookDto);
     }
