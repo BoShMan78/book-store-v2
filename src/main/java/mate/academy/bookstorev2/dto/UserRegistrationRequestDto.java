@@ -2,6 +2,7 @@ package mate.academy.bookstorev2.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 import mate.academy.bookstorev2.validation.FieldMatch;
@@ -13,6 +14,12 @@ import mate.academy.bookstorev2.validation.FieldMatch;
         message = "The password fields must match")
 public class UserRegistrationRequestDto {
     @NotBlank
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&*?])[A-Za-z\\d#$@!%&*?]{8,}$")
+    //Min 1 uppercase letter
+    //Min 1 lowercase letter
+    //Min 1 special character
+    //Min 1 number
+    //Min 8 characters
     private String password;
     @NotBlank
     @Email(message = "Email is not valid",
