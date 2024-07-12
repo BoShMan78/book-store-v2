@@ -3,6 +3,7 @@ package mate.academy.bookstorev2.service;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstorev2.dto.UserRegistrationRequestDto;
 import mate.academy.bookstorev2.dto.UserResponseDto;
+import mate.academy.bookstorev2.exception.RegistrationException;
 import mate.academy.bookstorev2.mapper.UserMapper;
 import mate.academy.bookstorev2.model.User;
 import mate.academy.bookstorev2.repository.user.UserRepository;
@@ -16,6 +17,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto register(UserRegistrationRequestDto requestDto) {
+        if (userRepository.existsByEmail(requestDto.getEmail())) {
+            throw new RegistrationException("User with email: " + requestDto.getEmail()
+                    + " already exist");
+        }
         User user = userMapper.toModel(requestDto);
         return userMapper.toDto(userRepository.save(user));
     }
