@@ -15,11 +15,6 @@ import mate.academy.bookstorev2.validation.FieldMatch;
 public class UserRegistrationRequestDto {
     @NotBlank
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&*?])[A-Za-z\\d#$@!%&*?]{8,}$")
-    //Min 1 uppercase letter
-    //Min 1 lowercase letter
-    //Min 1 special character
-    //Min 1 number
-    //Min 8 characters
     private String password;
     @NotBlank
     @Email(message = "Email is not valid",
