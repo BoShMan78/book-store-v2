@@ -14,6 +14,7 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,7 @@ public class BookController {
         return bookService.findAll(pageable);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @Operation(summary = "Create a new book", description = "Create a new book")
     public BookDto createBook(@RequestBody @Valid CreateBookRequestDto bookDto) {
@@ -52,6 +54,7 @@ public class BookController {
         return bookService.findBookById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     @Operation(summary = "Update book by id", description = "Update book by id")
     public BookDto updateBookById(@PathVariable @Positive Long id,
@@ -59,6 +62,7 @@ public class BookController {
         return bookService.updateBookById(id, bookDto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete book by id", description = "Delete book by id")
     @DeleteMapping("/{id}")
