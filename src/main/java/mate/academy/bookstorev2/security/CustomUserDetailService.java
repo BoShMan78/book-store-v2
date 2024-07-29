@@ -1,6 +1,7 @@
 package mate.academy.bookstorev2.security;
 
 import lombok.RequiredArgsConstructor;
+import mate.academy.bookstorev2.exception.EntityNotFoundException;
 import mate.academy.bookstorev2.model.User;
 import mate.academy.bookstorev2.repository.user.UserRepository;
 import org.hibernate.Hibernate;
@@ -19,7 +20,7 @@ public class CustomUserDetailService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findUserByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Can't find user by email"));
+                .orElseThrow(() -> new EntityNotFoundException("Can't find user by email"));
         Hibernate.initialize(user.getRoles());
         return user;
     }

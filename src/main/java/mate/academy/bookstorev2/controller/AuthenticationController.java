@@ -33,7 +33,7 @@ public class AuthenticationController {
     // Not in task
     @PostMapping("/login")
     @Operation(summary = "User login", description = "User login")
-    public boolean login(@RequestBody UserLoginRequestDto requestDto) {
+    public boolean login(@Valid @RequestBody UserLoginRequestDto requestDto) {
         return authenticationService.authenticate(requestDto);
     }
 }
