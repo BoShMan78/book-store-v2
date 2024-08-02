@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-roles-table
+      author: bohdan-sh
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+  - changeSet:
+      id: make-name-enum-roleName
+      author: bohdan-sh
+      changes:
+        - modifyDataType:
+            columnName: name
+            newDataType: ENUM('USER', 'ADMIN')
+            tableName: roles
