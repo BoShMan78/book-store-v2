@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstorev2.dto.UserLoginRequestDto;
+import mate.academy.bookstorev2.dto.UserLoginResponseDto;
 import mate.academy.bookstorev2.dto.UserRegistrationRequestDto;
 import mate.academy.bookstorev2.dto.UserResponseDto;
 import mate.academy.bookstorev2.exception.RegistrationException;
@@ -32,7 +33,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     @Operation(summary = "User login", description = "User login")
-    public boolean login(@Valid @RequestBody UserLoginRequestDto requestDto) {
+    public UserLoginResponseDto login(@Valid @RequestBody UserLoginRequestDto requestDto) {
         return authenticationService.authenticate(requestDto);
     }
 }
