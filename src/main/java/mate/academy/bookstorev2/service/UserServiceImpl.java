@@ -4,8 +4,8 @@ import static mate.academy.bookstorev2.model.Role.RoleName.ROLE_USER;
 
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
-import mate.academy.bookstorev2.dto.UserRegistrationRequestDto;
-import mate.academy.bookstorev2.dto.UserResponseDto;
+import mate.academy.bookstorev2.dto.user.UserRegistrationRequestDto;
+import mate.academy.bookstorev2.dto.user.UserResponseDto;
 import mate.academy.bookstorev2.exception.RegistrationException;
 import mate.academy.bookstorev2.mapper.UserMapper;
 import mate.academy.bookstorev2.model.Role;
