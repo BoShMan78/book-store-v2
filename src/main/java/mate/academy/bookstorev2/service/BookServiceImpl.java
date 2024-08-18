@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstorev2.dto.book.BookDto;
 import mate.academy.bookstorev2.dto.book.BookSearchParametersDto;
+import mate.academy.bookstorev2.dto.book.BookWithoutCategoriesDto;
 import mate.academy.bookstorev2.dto.book.CreateBookRequestDto;
 import mate.academy.bookstorev2.exception.EntityNotFoundException;
 import mate.academy.bookstorev2.mapper.BookMapper;
@@ -31,7 +32,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> findAll(Pageable pageable) {
-        return bookRepository.findAll(pageable).stream()
+        return bookRepository.findAllWithCategories(pageable).stream()
                 .map(bookMapper::toDto)
                 .toList();
     }
@@ -62,21 +63,21 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> searchBooks(BookSearchParametersDto searchParameters) {
-        Specification<Book> spec = bookSearchSpecification.searchByTitleAndAuthor(
-                searchParameters.title(),
-                searchParameters.author()
-        );
-        return bookRepository.findAll(spec)
-                .stream()
+    public List<BookDto> searchBooks(BookSearchParametersDto searchParameters, Pageable pageable) {
+        String title = searchParameters.title();
+        String author = searchParameters.author();
+        List<Book> books = bookRepository.searchByTitleAndAuthor(title, author, pageable);
+        return books.stream()
                 .map(bookMapper::toDto)
                 .toList();
     }
 
+
+
     @Override
-    public List<BookDto> searchBooksByCategoryId(Long id) {
-        return bookRepository.findBooksByCategoriesId(id).stream()
-                .map(bookMapper::toDto)
+    public List<BookWithoutCategoriesDto> searchBooksByCategoryId(Long id, Pageable pageable) {
+        return bookRepository.findAllByCategoriesId(id, pageable).stream()
+                .map(bookMapper::toBookWithoutCategoriesDto)
                 .toList();
     }
 }

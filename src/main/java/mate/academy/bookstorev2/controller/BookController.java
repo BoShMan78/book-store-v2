@@ -75,6 +75,6 @@ public class BookController {
             description = "Search book by title and author")
     public List<BookDto> searchBooks(@ModelAttribute BookSearchParametersDto searchParameters,
                                      @ParameterObject @PageableDefault Pageable pageable) {
-        return bookService.searchBooks(searchParameters);
+        return bookService.searchBooks(searchParameters, pageable);
     }
 }
