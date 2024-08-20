@@ -2,7 +2,6 @@ package mate.academy.bookstorev2.repository.book;
 
 import java.util.List;
 import java.util.Optional;
-
 import mate.academy.bookstorev2.model.Book;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,5 +23,6 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
     @Query("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.categories "
             + "WHERE (:title IS NULL OR b.title LIKE %:title%) "
             + "AND (:author IS NULL OR b.author LIKE %:author%)")
-    List<Book> searchByTitleAndAuthor(@Param("title") String title, @Param("author") String author, Pageable pageable);
+    List<Book> searchByTitleAndAuthor(@Param("title") String title,
+                                      @Param("author") String author, Pageable pageable);
 }

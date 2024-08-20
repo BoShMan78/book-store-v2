@@ -13,7 +13,6 @@ import mate.academy.bookstorev2.repository.book.BookRepository;
 import mate.academy.bookstorev2.repository.book.spec.BookSearchSpecification;
 import mate.academy.bookstorev2.repository.category.CategoryRepository;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -71,8 +70,6 @@ public class BookServiceImpl implements BookService {
                 .map(bookMapper::toDto)
                 .toList();
     }
-
-
 
     @Override
     public List<BookWithoutCategoriesDto> searchBooksByCategoryId(Long id, Pageable pageable) {
