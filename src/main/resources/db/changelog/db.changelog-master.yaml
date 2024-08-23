@@ -15,3 +15,7 @@ databaseChangeLog:
       file: classpath:/db/changelog/changes/07-assign-roles-to-existing-users.yaml
   - include:
       file: classpath:/db/changelog/changes/08-change-password-to-encrypted.yaml
+  - include:
+      file: classpath:/db/changelog/changes/09-create-categories-table.yaml
+  - include:
+      file: classpath:/db/changelog/changes/10-create-categories-books-table.yaml

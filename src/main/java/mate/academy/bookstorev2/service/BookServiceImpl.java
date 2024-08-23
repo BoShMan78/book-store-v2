@@ -2,16 +2,17 @@ package mate.academy.bookstorev2.service;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import mate.academy.bookstorev2.dto.BookDto;
-import mate.academy.bookstorev2.dto.BookSearchParametersDto;
-import mate.academy.bookstorev2.dto.CreateBookRequestDto;
+import mate.academy.bookstorev2.dto.book.BookDto;
+import mate.academy.bookstorev2.dto.book.BookSearchParametersDto;
+import mate.academy.bookstorev2.dto.book.BookWithoutCategoriesDto;
+import mate.academy.bookstorev2.dto.book.CreateBookRequestDto;
 import mate.academy.bookstorev2.exception.EntityNotFoundException;
 import mate.academy.bookstorev2.mapper.BookMapper;
 import mate.academy.bookstorev2.model.Book;
 import mate.academy.bookstorev2.repository.book.BookRepository;
 import mate.academy.bookstorev2.repository.book.spec.BookSearchSpecification;
+import mate.academy.bookstorev2.repository.category.CategoryRepository;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     private final BookSearchSpecification bookSearchSpecification;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
@@ -29,7 +31,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> findAll(Pageable pageable) {
-        return bookRepository.findAll(pageable).stream()
+        return bookRepository.findAllWithCategories(pageable).stream()
                 .map(bookMapper::toDto)
                 .toList();
     }
@@ -60,14 +62,19 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> searchBooks(BookSearchParametersDto searchParameters) {
-        Specification<Book> spec = bookSearchSpecification.searchByTitleAndAuthor(
-                searchParameters.title(),
-                searchParameters.author()
-        );
-        return bookRepository.findAll(spec)
-                .stream()
+    public List<BookDto> searchBooks(BookSearchParametersDto searchParameters, Pageable pageable) {
+        String title = searchParameters.title();
+        String author = searchParameters.author();
+        List<Book> books = bookRepository.searchByTitleAndAuthor(title, author, pageable);
+        return books.stream()
                 .map(bookMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    public List<BookWithoutCategoriesDto> searchBooksByCategoryId(Long id, Pageable pageable) {
+        return bookRepository.findAllByCategoriesId(id, pageable).stream()
+                .map(bookMapper::toBookWithoutCategoriesDto)
                 .toList();
     }
 }
