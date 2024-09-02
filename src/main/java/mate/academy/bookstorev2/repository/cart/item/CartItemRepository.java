@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface CartItemRepository
         extends JpaRepository<CartItem, Long>, JpaSpecificationExecutor<CartItem> {
-    void deleteCartItemById(Long cartItemId);
+    void deleteById(Long cartItemId);
 
     @Query("SELECT ci FROM CartItem ci LEFT JOIN FETCH ci.book WHERE ci.id= :id")
     Optional<CartItem> findById(@Param("id") Long id);

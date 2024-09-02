@@ -22,7 +22,7 @@ import org.hibernate.annotations.Where;
 @Setter
 @SQLDelete(sql = "UPDATE shopping_cart SET is_deleted=true WHERE id=?")
 @Where(clause = "is_deleted=false")
-@Table(name = "shopping_cart")
+@Table(name = "shopping_carts")
 public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
