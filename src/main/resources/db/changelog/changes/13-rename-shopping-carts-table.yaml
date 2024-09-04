@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: rename-shopping-carts-table
+      author: bohdan-sh
+      changes:
+        - renameTable:
+            oldTableName: shopping_cart
+            newTableName: shopping_carts
+
+  - changeSet:
+      id: rename-cart-items-table
+      author: bohdan-sh
+      changes:
+        - renameTable:
+            oldTableName: cart_item
+            newTableName: cart_items
