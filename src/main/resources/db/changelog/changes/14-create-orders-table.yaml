@@ -1,0 +1,55 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-orders-table
+      author: bohdan-sh
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: total
+                  type: decimal(19,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: shipping_address
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+        - addCheckConstraint:
+            tableName: orders
+            constraintName: ck_orders_status_enum
+            constraintBody: "status IN ('RECEIVED', 'CONFIRMED', 'PAID', 'SHIPPED', 'COMPLETED')"
+
+        - addForeignKeyConstraint:
+            baseTableName: orders
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_orders_user
+
+
+
