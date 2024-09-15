@@ -11,6 +11,8 @@ public interface CartItemRepository
         extends JpaRepository<CartItem, Long>, JpaSpecificationExecutor<CartItem> {
     void deleteById(Long cartItemId);
 
+    void deleteCartItemsByShoppingCartId(Long cartId);
+
     @Query("SELECT ci FROM CartItem ci LEFT JOIN FETCH ci.book WHERE ci.id= :id")
     Optional<CartItem> findById(@Param("id") Long id);
 }

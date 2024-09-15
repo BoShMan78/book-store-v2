@@ -1,13 +1,11 @@
 package mate.academy.bookstorev2.dto.order;
 
-import lombok.Getter;
-import lombok.Setter;
-import mate.academy.bookstorev2.dto.cart.item.CartItemDto;
-import mate.academy.bookstorev2.model.Order.Status;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import mate.academy.bookstorev2.model.Order.Status;
 
 @Getter
 @Setter

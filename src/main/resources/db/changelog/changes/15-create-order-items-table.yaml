@@ -47,4 +47,3 @@ databaseChangeLog:
             referencedTableName: books
             referencedColumnNames: id
             constraintName: fk_order_items_book
-
