@@ -2,7 +2,6 @@ package mate.academy.bookstorev2.mapper;
 
 import java.util.List;
 import mate.academy.bookstorev2.config.MapperConfig;
-import mate.academy.bookstorev2.dto.order.OrderCreateDto;
 import mate.academy.bookstorev2.dto.order.OrderDto;
 import mate.academy.bookstorev2.dto.order.OrderItemDto;
 import mate.academy.bookstorev2.dto.order.OrderRequestDto;
@@ -17,8 +16,6 @@ import org.mapstruct.MappingTarget;
 public interface OrderMapper {
     Order toModel(OrderRequestDto dto);
 
-    OrderCreateDto toCreateDto(Order order);
-
     @Mapping(source = "user.id", target = "userId")
     OrderDto toDto(Order order);
 
@@ -31,4 +28,7 @@ public interface OrderMapper {
                 .toList();
         orderDto.setOrderItems(orderItemDtoList);
     }
+
+    @Mapping(source = "user.id", target = "userId")
+    List<OrderDto> toOrderDtoList(List<Order> orderList);
 }

@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import mate.academy.bookstorev2.dto.order.OrderCreateDto;
 import mate.academy.bookstorev2.dto.order.OrderDto;
 import mate.academy.bookstorev2.dto.order.OrderItemDto;
 import mate.academy.bookstorev2.dto.order.OrderRequestDto;
@@ -38,9 +37,9 @@ public class OrderController {
     @PostMapping
     @Operation(summary = "Place an order",
             description = "Move all items from shopping cart to order")
-    public OrderCreateDto placeAnOrder(@RequestBody @Valid OrderRequestDto dto,
+    public OrderDto placeAnOrder(@RequestBody @Valid OrderRequestDto dto,
                                        @AuthenticationPrincipal User user) {
-        return orderService.addOrder(user, dto);
+        return orderService.placeAnOrder(user, dto);
     }
 
     @GetMapping

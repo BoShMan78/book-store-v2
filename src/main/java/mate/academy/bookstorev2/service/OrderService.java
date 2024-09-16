@@ -1,7 +1,6 @@
 package mate.academy.bookstorev2.service;
 
 import java.util.List;
-import mate.academy.bookstorev2.dto.order.OrderCreateDto;
 import mate.academy.bookstorev2.dto.order.OrderDto;
 import mate.academy.bookstorev2.dto.order.OrderItemDto;
 import mate.academy.bookstorev2.dto.order.OrderRequestDto;
@@ -10,7 +9,7 @@ import mate.academy.bookstorev2.model.User;
 import org.springframework.data.domain.Pageable;
 
 public interface OrderService {
-    OrderCreateDto addOrder(User user, OrderRequestDto dto);
+    OrderDto placeAnOrder(User user, OrderRequestDto dto);
 
     List<OrderDto> findAll(Pageable pageable, User user);
 

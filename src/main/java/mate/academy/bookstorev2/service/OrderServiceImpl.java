@@ -4,20 +4,19 @@ import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import mate.academy.bookstorev2.dto.order.OrderCreateDto;
 import mate.academy.bookstorev2.dto.order.OrderDto;
 import mate.academy.bookstorev2.dto.order.OrderItemDto;
 import mate.academy.bookstorev2.dto.order.OrderRequestDto;
 import mate.academy.bookstorev2.dto.order.OrderUpdateStatusDto;
 import mate.academy.bookstorev2.exception.EntityNotFoundException;
-import mate.academy.bookstorev2.mapper.CartItemToOrderItemMapper;
 import mate.academy.bookstorev2.mapper.OrderItemMapper;
 import mate.academy.bookstorev2.mapper.OrderMapper;
+import mate.academy.bookstorev2.model.CartItem;
 import mate.academy.bookstorev2.model.Order;
 import mate.academy.bookstorev2.model.Order.Status;
 import mate.academy.bookstorev2.model.OrderItem;
@@ -37,12 +36,11 @@ public class OrderServiceImpl implements OrderService {
     private final OrderItemRepository orderItemRepository;
     private final OrderItemMapper orderItemMapper;
     private final ShoppingCartRepository shoppingCartRepository;
-    private final CartItemToOrderItemMapper cartItemToOrderItemMapper;
     private final ShoppingCartService shoppingCartService;
 
     @Override
     @Transactional
-    public OrderCreateDto addOrder(User user, OrderRequestDto dto) {
+    public OrderDto placeAnOrder(User user, OrderRequestDto dto) {
         ShoppingCart cart = shoppingCartRepository.findByUserId(user.getId())
                 .orElseThrow(() ->
                         new EntityNotFoundException("Can't find user by id: " + user.getId()));
@@ -52,9 +50,16 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(Status.RECEIVED);
         order.setOrderDate(LocalDateTime.now());
 
-        Set<OrderItem> orderItems = cart.getCartItems().stream()
-                .map(cartItem -> cartItemToOrderItemMapper.toOrderItem(cartItem, order))
-                .collect(Collectors.toSet());
+        Set<CartItem> cartItems = cart.getCartItems();
+        Set<OrderItem> orderItems = new HashSet<>();
+        for (CartItem cartItem : cartItems) {
+            OrderItem orderItem = new OrderItem();
+            orderItem.setBook(cartItem.getBook());
+            orderItem.setOrder(order);
+            orderItem.setQuantity(cartItem.getQuantity());
+            orderItem.setPrice(cartItem.getBook().getPrice());
+            orderItems.add(orderItem);
+        }
 
         BigDecimal total = orderItems.stream()
                 .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
@@ -66,18 +71,13 @@ public class OrderServiceImpl implements OrderService {
         shoppingCartService.removeAllCartItems(cart.getId());
         cart.getCartItems().clear();
         shoppingCartRepository.save(cart);
-        return orderMapper.toCreateDto(order);
+
+        return orderMapper.toDto(order);
     }
 
     @Override
     public List<OrderDto> findAll(Pageable pageable, User user) {
-        List<Order> allByUserId = Optional.ofNullable(orderRepository
-                        .findAllByUserId(user.getId(), pageable))
-                .orElseGet(Collections::emptyList);
-        List<OrderDto> orderDtos = allByUserId.stream()
-                .map(orderMapper::toDto)
-                .toList();
-        return orderDtos;
+        return orderMapper.toOrderDtoList(orderRepository.findAllByUserId(user.getId(), pageable));
     }
 
     @Override
@@ -94,14 +94,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderItemDto getOrderItemsById(Long orderId, Long itemId) {
         OrderItem orderItem = orderItemRepository.findByIdAndOrder_Id(itemId, orderId).orElseThrow(
-                () -> new EntityNotFoundException("Can't find an item"));
+                () -> new EntityNotFoundException("Can't find an item with item_id: " + itemId
+                        + ", order_id: " + orderId));
         return orderItemMapper.toDto(orderItem);
     }
 
     @Override
     public OrderDto updateOrderStatus(Long orderId, OrderUpdateStatusDto dto) {
-        Order order = orderRepository.findByOOrderById(orderId).orElseThrow(
-                () -> new EntityNotFoundException("Can't find an order"));
+        Order order = orderRepository.findById(orderId).orElseThrow(
+                () -> new EntityNotFoundException("Can't find an order with id: " + orderId));
         order.setStatus(dto.status());
         orderRepository.save(order);
         return orderMapper.toDto(order);
