@@ -84,4 +84,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public void removeCartItem(Long cartItemId) {
         cartItemRepository.deleteById(cartItemId);
     }
+
+    @Override
+    public void removeAllCartItems(Long cartId) {
+        cartItemRepository.deleteCartItemsByShoppingCartId(cartId);
+    }
 }
