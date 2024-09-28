@@ -8,6 +8,15 @@
         <version>3.2.4</version>
         <relativePath/>
     </parent>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.checkstyle.plugin.configLocation>checkstyle.xml</maven.checkstyle.plugin.configLocation>
+        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+        <lombok.version>1.18.32</lombok.version>
+        <jjwt.version>0.12.6</jjwt.version>
+    </properties>
+
     <groupId>mate.academy</groupId>
     <artifactId>book-store</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -99,14 +108,6 @@
 
     </dependencies>
     <description>book-store-v2</description>
-
-    <properties>
-        <java.version>17</java.version>
-        <maven.checkstyle.plugin.configLocation>checkstyle.xml</maven.checkstyle.plugin.configLocation>
-        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
-        <lombok.version>1.18.32</lombok.version>
-        <jjwt.version>0.12.6</jjwt.version>
-    </properties>
 
     <build>
         <plugins>
