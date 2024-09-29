@@ -8,11 +8,7 @@
         <version>3.2.4</version>
         <relativePath/>
     </parent>
-    <groupId>mate.academy</groupId>
-    <artifactId>book-store</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>book-store-v2</name>
-    <description>book-store-v2</description>
+
     <properties>
         <java.version>17</java.version>
         <maven.checkstyle.plugin.configLocation>checkstyle.xml</maven.checkstyle.plugin.configLocation>
@@ -21,6 +17,10 @@
         <jjwt.version>0.12.6</jjwt.version>
     </properties>
 
+    <groupId>mate.academy</groupId>
+    <artifactId>book-store</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>book-store-v2</name>
     <dependencies>
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -100,7 +100,14 @@
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-docker-compose</artifactId>
+            <version>3.3.3</version>
+        </dependency>
+
     </dependencies>
+    <description>book-store-v2</description>
 
     <build>
         <plugins>
