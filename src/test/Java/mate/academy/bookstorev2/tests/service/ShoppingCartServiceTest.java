@@ -19,9 +19,9 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class ShoppingCartServiceTest {
     @InjectMocks
-    ShoppingCartServiceImpl shoppingCartService;
+    private ShoppingCartServiceImpl shoppingCartService;
     @Mock
-    ShoppingCartRepository shoppingCartRepository;
+    private ShoppingCartRepository shoppingCartRepository;
 
     @Test
     @DisplayName("""

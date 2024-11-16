@@ -1,5 +1,7 @@
 package mate.academy.bookstorev2.tests.service;
 
+import java.util.List;
+import java.util.Optional;
 import mate.academy.bookstorev2.dto.category.CategoryDto;
 import mate.academy.bookstorev2.dto.category.CreateCategoryRequestDto;
 import mate.academy.bookstorev2.mapper.CategoryMapper;
@@ -17,9 +19,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
@@ -31,12 +30,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 public class CategoryServiceTest {
     @InjectMocks
-    CategoryServiceImpl categoryService;
+    private CategoryServiceImpl categoryService;
 
     @Mock
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
     @Mock
-    CategoryMapper categoryMapper;
+    private CategoryMapper categoryMapper;
 
     @Test
     @DisplayName("""

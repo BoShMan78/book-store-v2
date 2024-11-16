@@ -21,6 +21,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -49,7 +50,7 @@ public class BookServiceTest {
         book.setId(bookId);
         book.setTitle("Testing book");
         book.setIsbn("testing book isbn");
-        book.setDeleted(false);
+        book.setPrice(BigDecimal.valueOf(10));
 
         BookDto bookDto = new BookDto();
         bookDto.setTitle(book.getTitle());
@@ -73,10 +74,12 @@ public class BookServiceTest {
     public void findBookById_WithNegativeBookId_ShouldThrowException() {
         // Given
         Long bookId = -10L;
-        when(bookRepository.findById(bookId)).thenThrow(new RuntimeException("Can't find book by id:" + bookId));
+        when(bookRepository.findById(bookId))
+                .thenThrow(new RuntimeException("Can't find book by id:" + bookId));
 
         // When
-        Exception exception = assertThrows(RuntimeException.class, () -> bookService.findBookById(bookId));
+        Exception exception = assertThrows(RuntimeException.class,
+                () -> bookService.findBookById(bookId));
 
         // Then
         String expected = "Can't find book by id:" + bookId;
@@ -94,7 +97,8 @@ public class BookServiceTest {
         when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
 
         // When
-        Exception exception = assertThrows(RuntimeException.class, () -> bookService.findBookById(bookId));
+        Exception exception = assertThrows(RuntimeException.class,
+                () -> bookService.findBookById(bookId));
 
         // Then
         String expected = "Can't find book by id:" + bookId;
@@ -236,8 +240,6 @@ public class BookServiceTest {
         // Given
         String title = "Test book";
         String author = "Test author";
-        Pageable pageable = PageRequest.of(0, 10);
-        BookSearchParametersDto bookSearchParametersDto = new BookSearchParametersDto(title, author);
 
         Book book = new Book();
         book.setTitle(title);
@@ -245,23 +247,27 @@ public class BookServiceTest {
         book.setPrice(BigDecimal.valueOf(100));
         book.setIsbn("123someUniqueNumber1234");
 
-        List<Book> bookList = List.of(book);
-
         BookDto expectedBookDto = new BookDto();
         expectedBookDto.setTitle(book.getTitle());
         expectedBookDto.setAuthor(book.getAuthor());
         expectedBookDto.setPrice(book.getPrice());
         expectedBookDto.setIsbn(book.getIsbn());
         List<BookDto> expected = List.of(expectedBookDto);
+        Pageable pageable = PageRequest.of(0, 10);
+        BookSearchParametersDto bookSearchParametersDto =
+                new BookSearchParametersDto(title, author);
+        List<Book> bookList = List.of(book);
 
         when(bookRepository.searchByTitleAndAuthor(title, author, pageable)).thenReturn(bookList);
         when(bookMapper.toDto(book)).thenReturn(expectedBookDto);
 
         // When
-        List<BookDto> actual = bookService.searchBooks(bookSearchParametersDto, pageable);
+        List<BookDto> actual = bookService
+                .searchBooks(bookSearchParametersDto, pageable);
 
         //Then
-        assertEquals(expected, actual, "The list of BookDto objects should match the expected list");
+        assertEquals(expected, actual,
+                "The list of BookDto objects should match the expected list");
         verify(bookRepository).searchByTitleAndAuthor(title, author, pageable);
         verify(bookMapper).toDto(book);
     }
@@ -272,8 +278,6 @@ public class BookServiceTest {
             """)
     public void searchBooksByCategoryId_WithValidData_ShouldReturnBookWithoutCategoriesDtoList() {
         // Given
-        Long id = 12345L;
-        Pageable pageable = PageRequest.of(0, 10);
 
         Book book = new Book();
         book.setTitle("Test book");
@@ -291,6 +295,8 @@ public class BookServiceTest {
 
         List<BookWithoutCategoriesDto> expected = List.of(bookWithoutCategoriesDto);
 
+        Pageable pageable = PageRequest.of(0, 10);
+        Long id = 12345L;
         when(bookRepository.findAllByCategoriesId(id, pageable)).thenReturn(bookList);
         when(bookMapper.toBookWithoutCategoriesDto(book)).thenReturn(bookWithoutCategoriesDto);
 
@@ -301,8 +307,5 @@ public class BookServiceTest {
         assertEquals(expected, actual);
         verify(bookRepository).findAllByCategoriesId(id, pageable);
         verify(bookMapper).toBookWithoutCategoriesDto(book);
-
     }
-
-
 }
