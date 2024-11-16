@@ -1,6 +1,0 @@
-databaseChangeLog:
-  - changeSet:
-      id: rename-enum-values
-      author: bohdan-sh
-      changes: []
-      context: test

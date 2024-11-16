@@ -1,5 +1,13 @@
 package mate.academy.bookstorev2.tests.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -21,14 +29,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class BookServiceTest {
@@ -285,8 +285,6 @@ public class BookServiceTest {
         book.setPrice(BigDecimal.valueOf(100));
         book.setIsbn("123someUniqueNumber1234");
 
-        List<Book> bookList = List.of(book);
-
         BookWithoutCategoriesDto bookWithoutCategoriesDto = new BookWithoutCategoriesDto();
         bookWithoutCategoriesDto.setTitle(book.getTitle());
         bookWithoutCategoriesDto.setAuthor(book.getAuthor());
@@ -297,6 +295,8 @@ public class BookServiceTest {
 
         Pageable pageable = PageRequest.of(0, 10);
         Long id = 12345L;
+        List<Book> bookList = List.of(book);
+
         when(bookRepository.findAllByCategoriesId(id, pageable)).thenReturn(bookList);
         when(bookMapper.toBookWithoutCategoriesDto(book)).thenReturn(bookWithoutCategoriesDto);
 

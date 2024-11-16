@@ -38,4 +38,3 @@ databaseChangeLog:
             newColumnName: name
             columnDataType: ENUM('ROLE_USER', 'ROLE_ADMIN')
 
-      context: "!test"
