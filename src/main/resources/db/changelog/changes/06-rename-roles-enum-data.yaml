@@ -19,14 +19,18 @@ databaseChangeLog:
                   name: new_name
                   type: ENUM('ROLE_USER', 'ROLE_ADMIN')
                   constraints:
-                    nullable: false
+                    nullable: true
 
         - update:
             tableName: roles
             columns:
               - column:
                   name: new_name
-                  valueComputed: "CASE name WHEN 'USER' THEN 'ROLE_USER' WHEN 'ADMIN' THEN 'ROLE_ADMIN' ELSE name END"
+                  valueComputed: "CASE name WHEN 'USER' THEN 'ROLE_USER' WHEN 'ADMIN' THEN 'ROLE_ADMIN' ELSE NULL END"
+
+        - addNotNullConstraint:
+            tableName: roles
+            columnName: new_name
 
         - dropColumn:
             tableName: roles
@@ -37,4 +41,3 @@ databaseChangeLog:
             oldColumnName: new_name
             newColumnName: name
             columnDataType: ENUM('ROLE_USER', 'ROLE_ADMIN')
-

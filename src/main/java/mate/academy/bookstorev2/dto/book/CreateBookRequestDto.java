@@ -7,10 +7,12 @@ import java.math.BigDecimal;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import mate.academy.bookstorev2.validation.UniqueIsbn;
 
 @Getter
 @Setter
+@Accessors(chain = true)
 public class CreateBookRequestDto {
     @NotBlank
     private String title;
