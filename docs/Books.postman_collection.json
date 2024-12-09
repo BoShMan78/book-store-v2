@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "0326aed4-8ddf-472d-8ec7-f20aa847f55e",
+		"name": "Books",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34047080"
+	},
+	"item": [
+		{
+			"name": "create new book",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Sample Book 1\",\r\n    \"author\": \"Author 1\",\r\n    \"isbn\": \"9789876543210\",\r\n    \"price\": 24.99,\r\n    \"description\": \"Another sample book description.\",\r\n    \"coverImage\": \"http://example.com/cover1.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/api/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all books",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Sample Book 2\",\r\n    \"author\": \"Author B\",\r\n    \"isbn\": \"9789876543210\",\r\n    \"price\": 24.99,\r\n    \"description\": \"Another sample book description.\",\r\n    \"coverImage\": \"http://example.com/cover2.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/api/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get book by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Sample Book 2\",\r\n    \"author\": \"Author B\",\r\n    \"isbn\": \"9789876543210\",\r\n    \"price\": 24.99,\r\n    \"description\": \"Another sample book description.\",\r\n    \"coverImage\": \"http://example.com/cover2.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/api/books/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"books",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update book by ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Updated Title\",\r\n  \"author\": \"Updated Author\",\r\n  \"isbn\": \"978-1234567890\",\r\n  \"price\": 19.99,\r\n  \"description\": \"Updated description\",\r\n  \"coverImage\": \"https://example.com/updated-cover-image.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/api/books/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"books",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete book by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Sample Book 3\",\r\n    \"author\": \"Author 2\",\r\n    \"isbn\": \"97819831110\",\r\n    \"price\": 24.99,\r\n    \"description\": \"Another sample book description.\",\r\n    \"coverImage\": \"http://example.com/cover1.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/api/books/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"books",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search request",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Sample Book 2\",\r\n    \"author\": \"Author B\",\r\n    \"isbn\": \"9789876543210\",\r\n    \"price\": 24.99,\r\n    \"description\": \"Another sample book description.\",\r\n    \"coverImage\": \"http://example.com/cover2.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/api/books/search?author=author",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"books",
+						"search"
+					],
+					"query": [
+						{
+							"key": "author",
+							"value": "author"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
