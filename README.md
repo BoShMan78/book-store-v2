@@ -47,9 +47,10 @@ The project includes unit tests with mocks to ensure robust functionality and re
 
 ### Postman Collection
 
-A Postman collection is provided in the repository. To use it:
+A Postman collections is provided in the repository. To use it:
+docs/*.postman_collection.json
 
-Import the collection file (bookstore.postman_collection.json) into Postman.
+Import the collection files (*.postman_collection.json) into Postman.
 Configure the environment variables in Postman for API base URL and authentication tokens.
 Run the requests to interact with the API.
 
