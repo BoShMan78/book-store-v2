@@ -15,13 +15,17 @@ The Bookstore project provides a simple and secure platform for managing a books
 
 ## 💻 Technologies Used
 
-+ Spring Boot
++ Java 17
++ Spring Boot 3.2.4
 + Spring Security
++ MapStruct 1.5.5.Final
 + Hibernate
 + Liquibase
-+ MySQL
++ MySQL 8.2.0
 + Docker
-+ Swagger
++ Swagger (springdoc-openapi 2.5.0)
++ JJWT 0.12.6
++ Testcontainers 1.20.3
 
 ### 💾 Setup Instructions
 

@@ -10,23 +10,21 @@ databaseChangeLog:
   - include:
       file: classpath:/db/changelog/changes/05-insert-users.yaml
   - include:
-      file: classpath:/db/changelog/changes/06-rename-roles-enum-data.yaml
+      file: classpath:/db/changelog/changes/06-assign-roles-to-existing-users.yaml
   - include:
-      file: classpath:/db/changelog/changes/07-assign-roles-to-existing-users.yaml
+      file: classpath:/db/changelog/changes/07-change-password-to-encrypted.yaml
   - include:
-      file: classpath:/db/changelog/changes/08-change-password-to-encrypted.yaml
+      file: classpath:/db/changelog/changes/08-create-categories-table.yaml
   - include:
-      file: classpath:/db/changelog/changes/09-create-categories-table.yaml
+      file: classpath:/db/changelog/changes/09-create-categories-books-table.yaml
   - include:
-      file: classpath:/db/changelog/changes/10-create-categories-books-table.yaml
+      file: classpath:/db/changelog/changes/10-create-shopping-cart-table.yaml
   - include:
-      file: classpath:/db/changelog/changes/11-create-shopping-cart-table.yaml
+      file: classpath:/db/changelog/changes/11-create-cart-item-table.yaml
   - include:
-      file: classpath:/db/changelog/changes/12-create-cart-item-table.yaml
+      file: classpath:/db/changelog/changes/12-rename-shopping-carts-table.yaml
   - include:
-      file: classpath:/db/changelog/changes/13-rename-shopping-carts-table.yaml
+      file: classpath:/db/changelog/changes/13-create-orders-table.yaml
   - include:
-      file: classpath:/db/changelog/changes/14-create-orders-table.yaml
-  - include:
-      file: classpath:/db/changelog/changes/15-create-order-items-table.yaml
+      file: classpath:/db/changelog/changes/14-create-order-items-table.yaml
 
