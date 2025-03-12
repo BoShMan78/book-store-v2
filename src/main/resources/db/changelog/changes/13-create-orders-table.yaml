@@ -20,7 +20,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: status
-                  type: ENUM('RECEIVED', 'CONFIRMED', 'PAID', 'SHIPPED', 'COMPLETED')
+                  type: enum('RECEIVED', 'CONFIRMED', 'PAID', 'SHIPPED', 'COMPLETED')
                   constraints:
                     nullable: false
               - column:

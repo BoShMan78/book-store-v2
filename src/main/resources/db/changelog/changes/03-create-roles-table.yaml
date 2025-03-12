@@ -15,16 +15,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: name
-                  type: varchar(255)
+                  type: enum('ROLE_USER', 'ROLE_ADMIN')
                   constraints:
                     nullable: false
                     unique: true
-
-  - changeSet:
-      id: make-name-enum-roleName
-      author: bohdan-sh
-      changes:
-        - modifyDataType:
-            columnName: name
-            newDataType: ENUM('USER', 'ADMIN')
-            tableName: roles
